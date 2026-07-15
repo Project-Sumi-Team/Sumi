@@ -17,6 +17,8 @@ export const endpoints = {
   },
 
   chapters: {
+    list: (projectId: string) =>
+      `/projects/${projectId}/chapters`,
     create: "/chapters",
     get: (id: string) => `/chapters/${id}`,
     update: (id: string) => `/chapters/${id}`,
@@ -60,3 +62,25 @@ export async function api<T>(
 
   return response.json();
 }
+
+// Chapter Helpers
+
+export const fetchChapters = (
+  projectId: string
+) =>
+  api(endpoints.chapters.list(projectId));
+  
+
+export const createChapter = (
+  data: {
+    projectId: string;
+    title: string;
+  }
+) =>
+  api(
+    endpoints.chapters.create,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  );
