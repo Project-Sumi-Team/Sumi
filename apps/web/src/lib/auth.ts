@@ -1,0 +1,43 @@
+import { api, endpoints } from "./api";
+
+export interface LoginInput {
+  email: string;
+  password: string;
+}
+
+export interface RegisterInput {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export async function login(data: LoginInput) {
+  return api(endpoints.auth.login, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function register(data: RegisterInput) {
+  return api(endpoints.auth.register, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function getCurrentUser() {
+  return api(endpoints.auth.me);
+}
+const TOKEN_KEY = "sumi_token";
+
+export function saveToken(token: string) {
+  localStorage.setItem(TOKEN_KEY, token);
+}
+
+export function getToken() {
+  return localStorage.getItem(TOKEN_KEY);
+}
+
+export function removeToken() {
+  localStorage.removeItem(TOKEN_KEY);
+}
