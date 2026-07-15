@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Page } from "../../types/page.temp";
+import type { Page } from "../../types/page";
 
 interface Props {
   pages: Page[];
@@ -20,7 +20,7 @@ export default function PageGrid({ pages, loading, onDelete, onCreateClick }: Pr
     return <p className="text-sm text-gray-400">Loading pages…</p>;
   }
 
-  const sorted = pages.slice().sort((a, b) => a.order - b.order);
+  const sorted = pages.slice().sort((a, b) => a.pageNumber - b.pageNumber);
 
   return (
     <div>
@@ -33,7 +33,6 @@ export default function PageGrid({ pages, loading, onDelete, onCreateClick }: Pr
           + New page
         </button>
       </div>
-
       {sorted.length === 0 ? (
         <div className="border border-dashed border-gray-300 rounded-lg p-8 text-center">
           <p className="text-sm text-gray-400">No pages yet.</p>
@@ -51,9 +50,7 @@ export default function PageGrid({ pages, loading, onDelete, onCreateClick }: Pr
               key={page.id}
               className="relative border border-gray-200 rounded-lg p-4 bg-white hover:bg-gray-50"
             >
-              <p className="text-sm font-medium text-gray-800">Page {page.order}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{page.width} × {page.height}</p>
-
+              <p className="text-sm font-medium text-gray-800">Page {page.pageNumber}</p>
               {confirmId === page.id ? (
                 <div className="mt-2 flex items-center gap-2">
                   <span className="text-xs text-gray-500">Delete?</span>

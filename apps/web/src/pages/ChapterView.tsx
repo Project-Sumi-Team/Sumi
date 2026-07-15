@@ -5,22 +5,19 @@ import PageGrid from "../components/chapter/PageGrid";
 import CreatePageModal from "../components/modals/CreatePageModal";
 import { useChapterStore } from "../store/chapterStore";
 import { usePageStore } from "../store/pageStore";
-import type { Chapter } from "../types/chapter.temp";
+import type { Chapter } from "../types/chapter";
 
 export default function ChapterView() {
   const { projectId, chapterId } = useParams<{ projectId: string; chapterId: string }>();
-
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showCreatePage, setShowCreatePage] = useState(false);
-
   const { chapters, fetchChapters } = useChapterStore();
   const { pages, loading: pagesLoading, fetchPages, createPage, deletePage } = usePageStore();
 
   useEffect(() => {
     if (!projectId || !chapterId) return;
-
     const cached = chapters.find((c) => c.id === chapterId);
     if (cached) {
       setChapter(cached);
@@ -30,7 +27,6 @@ export default function ChapterView() {
         .then(() => setLoading(false))
         .catch(() => { setError("Chapter not found."); setLoading(false); });
     }
-
     fetchPages(chapterId);
   }, [projectId, chapterId]);
 
@@ -40,9 +36,9 @@ export default function ChapterView() {
     if (found) { setChapter(found); setError(null); }
   }, [chapters, chapterId]);
 
-  async function handleCreatePage(data: { order: number; width: number; height: number }) {
+  async function handleCreatePage() {
     if (!chapterId) return;
-    await createPage(chapterId, data);
+    await createPage(chapterId);
   }
 
   if (loading) {
@@ -72,11 +68,9 @@ export default function ChapterView() {
           onCreateClick={() => setShowCreatePage(true)}
         />
       </div>
-
       {showCreatePage && (
         <CreatePageModal
           chapterId={chapter.id}
-          nextOrder={pages.length + 1}
           onConfirm={handleCreatePage}
           onClose={() => setShowCreatePage(false)}
         />

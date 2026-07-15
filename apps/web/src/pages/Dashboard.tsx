@@ -8,7 +8,7 @@ export default function Dashboard() {
     useProjectStore();
 
   const [showForm, setShowForm] = useState(false);
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [confirmId, setConfirmId] = useState<string | null>(null);
@@ -19,11 +19,14 @@ export default function Dashboard() {
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!name.trim()) return;
     setSubmitting(true);
     try {
-      const project = await createProject({ title: title.trim(), description: description.trim() || null });
-      setTitle("");
+      const project = await createProject({
+        name: name.trim(),
+        ...(description.trim() ? { description: description.trim() } : {}),
+      });
+      setName("");
       setDescription("");
       setShowForm(false);
       navigate(`/projects/${project.id}`);
@@ -49,9 +52,9 @@ export default function Dashboard() {
           <form onSubmit={handleCreate} className="border border-gray-200 rounded-lg p-4 bg-white space-y-3">
             <input
               type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Project title"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Project name"
               autoFocus
               className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
             />
@@ -72,7 +75,7 @@ export default function Dashboard() {
               </button>
               <button
                 type="submit"
-                disabled={submitting || !title.trim()}
+                disabled={submitting || !name.trim()}
                 className="text-sm bg-gray-900 text-white px-4 py-1.5 rounded-md hover:bg-gray-700 disabled:opacity-50"
               >
                 {submitting ? "Creating…" : "Create"}
@@ -107,7 +110,7 @@ export default function Dashboard() {
                   onClick={() => navigate(`/projects/${project.id}`)}
                   className="flex-1 text-left"
                 >
-                  <span className="text-sm font-medium text-gray-900">{project.title}</span>
+                  <span className="text-sm font-medium text-gray-900">{project.name}</span>
                   {project.description && (
                     <span className="ml-2 text-xs text-gray-400">{project.description}</span>
                   )}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Project } from "../../types/project.temp";
+import type { Project } from "../../types/project";
 
 interface Props {
   project: Project;
@@ -12,7 +12,7 @@ export default function ProjectHeader({ project, onDelete }: Props) {
   return (
     <div className="flex items-start justify-between">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">{project.title}</h1>
+        <h1 className="text-2xl font-bold text-gray-900">{project.name}</h1>
         {project.description && (
           <p className="mt-1 text-sm text-gray-500">{project.description}</p>
         )}

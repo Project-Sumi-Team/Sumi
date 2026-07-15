@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import type { Chapter } from "../../types/chapter.temp";
+import type { Chapter } from "../../types/chapter";
 
 interface Props {
   chapter: Chapter;
@@ -18,7 +18,7 @@ export default function ChapterHeader({ chapter, projectId }: Props) {
         ← Back
       </button>
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">{chapter.title}</h1>
+        <h1 className="text-2xl font-bold text-gray-900">{chapter.name}</h1>
         <p className="text-xs text-gray-400 mt-0.5">Chapter {chapter.order}</p>
       </div>
     </div>

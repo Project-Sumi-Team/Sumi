@@ -1,13 +1,13 @@
 import { create } from "zustand";
-import * as api from "../lib/api.temp";
-import type { Project, CreateProjectData } from "../types/project.temp";
+import { api, endpoints } from "../lib/api";
+import type { Project, CreateProjectInput } from "../types/project";
 
 interface ProjectState {
   projects: Project[];
   loading: boolean;
   error: string | null;
   fetchProjects: () => Promise<void>;
-  createProject: (data: CreateProjectData) => Promise<Project>;
+  createProject: (data: CreateProjectInput) => Promise<Project>;
   deleteProject: (id: string) => Promise<void>;
 }
 
@@ -19,7 +19,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
   fetchProjects: async () => {
     set({ loading: true, error: null });
     try {
-      const projects = await api.getProjects();
+      const projects = await api<Project[]>(endpoints.projects.list);
       set({ projects, loading: false });
     } catch (e) {
       set({ error: String(e), loading: false });
@@ -27,17 +27,16 @@ export const useProjectStore = create<ProjectState>((set) => ({
   },
 
   createProject: async (data) => {
-    // ownerId placeholder until auth is wired up
-    const project = await api.createProject({
-      ...data,
-      ownerId: "00000000-0000-0000-0000-000000000001",
-    } as Parameters<typeof api.createProject>[0]);
+    const project = await api<Project>(endpoints.projects.create, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
     set((s) => ({ projects: [...s.projects, project] }));
     return project;
   },
 
   deleteProject: async (id) => {
-    await api.deleteProject(id);
+    await api<void>(endpoints.projects.delete(id), { method: "DELETE" });
     set((s) => ({ projects: s.projects.filter((p) => p.id !== id) }));
   },
 }));

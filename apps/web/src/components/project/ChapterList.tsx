@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Chapter } from "../../types/chapter.temp";
+import type { Chapter } from "../../types/chapter";
 
 interface Props {
   projectId: string;
@@ -34,7 +34,6 @@ export default function ChapterList({ projectId, chapters, loading, onDelete, on
           + New chapter
         </button>
       </div>
-
       {chapters.length === 0 ? (
         <div className="border border-dashed border-gray-300 rounded-lg p-8 text-center">
           <p className="text-sm text-gray-400">No chapters yet.</p>
@@ -59,10 +58,9 @@ export default function ChapterList({ projectId, chapters, loading, onDelete, on
                   onClick={() => navigate(`/projects/${projectId}/chapters/${chapter.id}`)}
                   className="flex-1 text-left"
                 >
-                  <span className="text-sm font-medium text-gray-900">{chapter.title}</span>
+                  <span className="text-sm font-medium text-gray-900">{chapter.name}</span>
                   <span className="ml-2 text-xs text-gray-400">#{chapter.order}</span>
                 </button>
-
                 {confirmId === chapter.id ? (
                   <div className="flex items-center gap-2 ml-4">
                     <span className="text-xs text-gray-500">Delete?</span>
