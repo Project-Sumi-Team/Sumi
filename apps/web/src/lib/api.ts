@@ -74,7 +74,7 @@ export const fetchChapters = (
 export const createChapter = (
   data: {
     projectId: string;
-    title: string;
+    name: string;
   }
 ) =>
   api(

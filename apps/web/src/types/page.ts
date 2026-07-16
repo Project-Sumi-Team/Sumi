@@ -14,5 +14,6 @@ export interface CreatePageInput {
 }
 
 export interface UpdatePageInput {
-  pageNumber: number
+  pageNumber: number;
+  editorData: unknown;
 }
