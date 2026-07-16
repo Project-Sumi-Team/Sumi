@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Modal, { ModalFooter } from "../ui/Modal";
+import Button from "../ui/Button";
 
 interface Props {
   chapterId: string;
@@ -23,31 +25,19 @@ export default function CreatePageModal({ onConfirm, onClose }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">New page</h2>
-        <p className="text-sm text-gray-600 mb-4">
-          This will add a new blank page to the end of the chapter.
-        </p>
-        {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
-        <div className="flex justify-end gap-2 pt-2">
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900"
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={handleConfirm}
-            disabled={submitting}
-            className="px-4 py-2 text-sm bg-gray-900 text-white rounded-md hover:bg-gray-700 disabled:opacity-50"
-          >
-            {submitting ? "Creating…" : "Create"}
-          </button>
-        </div>
-      </div>
-    </div>
+    <Modal open onClose={onClose} title="New page">
+      <p className="text-body text-neutral-600 mb-4">
+        This will add a new blank page to the end of the chapter.
+      </p>
+      {error && <p className="text-small text-danger-600 mb-4">{error}</p>}
+      <ModalFooter>
+        <Button type="button" variant="ghost" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button type="button" variant="primary" loading={submitting} onClick={handleConfirm}>
+          Create
+        </Button>
+      </ModalFooter>
+    </Modal>
   );
 }
