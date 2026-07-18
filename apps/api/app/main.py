@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.pages import router as pages_router
 from app.api.chapters import router as chapters_router
+from app.api.export import router as export_router
+from app.api.auth import router as auth_router
+from app.api.projects import router as projects_router
 app = FastAPI(
     title="Sumi API",
     description="Backend API for Sumi Manga Editor",
@@ -35,6 +38,8 @@ def health_check():
     return {
         "status": "ok"
     }
-    
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
+app.include_router(projects_router, prefix="/projects", tags=["projects"])
 app.include_router(pages_router, prefix="/pages", tags=["pages"])
 app.include_router(chapters_router, prefix="/chapters", tags=["chapters"])
+app.include_router(export_router, prefix="/export", tags=["export"])
