@@ -14,10 +14,6 @@ export interface CreatePageInput {
 }
 
 export interface UpdatePageInput {
-<<<<<<< HEAD
   pageNumber: number;
   editorData: unknown;
-=======
-  pageNumber: number
->>>>>>> origin/dorito/ui-foundation
 }

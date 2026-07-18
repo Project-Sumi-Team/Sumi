@@ -36,20 +36,24 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-3xl mx-auto px-6 py-10 space-y-8">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
+    <div className="min-h-screen bg-slate-50">
+      <div className="mx-auto max-w-4xl px-6 py-10 space-y-8 lg:px-8">
+        <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-500">Workspace</p>
+            <h1 className="mt-1 text-2xl font-semibold text-slate-900">Your projects</h1>
+            <p className="mt-2 text-sm text-slate-600">Create a new project or reopen one you’ve been building.</p>
+          </div>
           <button
             onClick={() => setShowForm((v) => !v)}
-            className="text-sm bg-gray-900 text-white px-3 py-1.5 rounded-md hover:bg-gray-700"
+            className="rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
           >
-            + New project
+            {showForm ? "Close" : "+ New project"}
           </button>
         </div>
 
         {showForm && (
-          <form onSubmit={handleCreate} className="border border-gray-200 rounded-lg p-4 bg-white space-y-3">
+          <form onSubmit={handleCreate} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm space-y-3">
             <input
               type="text"
               value={name}
@@ -84,15 +88,16 @@ export default function Dashboard() {
           </form>
         )}
 
-        {loading && <p className="text-sm text-gray-400">Loading…</p>}
+        {loading && <p className="text-sm text-slate-500">Loading your projects…</p>}
         {error && <p className="text-sm text-red-500">{error}</p>}
 
         {!loading && projects.length === 0 && (
-          <div className="border border-dashed border-gray-300 rounded-lg p-8 text-center">
-            <p className="text-sm text-gray-400">No projects yet.</p>
+          <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center shadow-sm">
+            <p className="text-lg font-medium text-slate-800">No projects yet</p>
+            <p className="mt-2 text-sm text-slate-600">Start with a fresh idea and build your first manga project here.</p>
             <button
               onClick={() => setShowForm(true)}
-              className="mt-2 text-sm text-gray-600 underline hover:text-gray-900"
+              className="mt-5 rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
             >
               Create your first project
             </button>
@@ -100,11 +105,11 @@ export default function Dashboard() {
         )}
 
         {projects.length > 0 && (
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {projects.map((project) => (
               <li
                 key={project.id}
-                className="flex items-center justify-between border border-gray-200 rounded-lg px-4 py-3 bg-white hover:bg-gray-50"
+                className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition hover:bg-slate-50"
               >
                 <button
                   onClick={() => navigate(`/projects/${project.id}`)}

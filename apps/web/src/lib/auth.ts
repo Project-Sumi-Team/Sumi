@@ -11,15 +11,20 @@ export interface RegisterInput {
   password: string;
 }
 
-export async function login(data: LoginInput) {
-  return api(endpoints.auth.login, {
+export interface AuthResponse {
+  access_token: string;
+  token_type: string;
+}
+
+export async function login(data: LoginInput): Promise<AuthResponse> {
+  return api<AuthResponse>(endpoints.auth.login, {
     method: "POST",
     body: JSON.stringify(data),
   });
 }
 
-export async function register(data: RegisterInput) {
-  return api(endpoints.auth.register, {
+export async function register(data: RegisterInput): Promise<unknown> {
+  return api<unknown>(endpoints.auth.register, {
     method: "POST",
     body: JSON.stringify(data),
   });
