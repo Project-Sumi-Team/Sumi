@@ -1,150 +1,150 @@
-import { useState } from "react";
-
-import ProjectCard from "../components/project/projectcard";
-import SearchBar from "../components/project/searchbar";
-import CreateProjectModal from "../components/project/createprojectmodal";
-
-interface Project {
-  id: string;
-  title: string;
-  chapters: number;
-  updatedAt: string;
-}
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useProjectStore } from "../store/projectStore";
 
 export default function Dashboard() {
-  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const { projects, loading, error, fetchProjects, createProject, deleteProject } =
+    useProjectStore();
 
-  const [isCreateModalOpen, setIsCreateModalOpen] =
-    useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [confirmId, setConfirmId] = useState<string | null>(null);
 
-  const [projects, setProjects] = useState<Project[]>([
-    {
-      id: "1",
-      title: "Project Sumi",
-      chapters: 5,
-      updatedAt: "Today",
-    },
-    {
-      id: "2",
-      title: "Fantasy Manga",
-      chapters: 2,
-      updatedAt: "Yesterday",
-    },
-    {
-      id: "3",
-      title: "Sci-Fi Story",
-      chapters: 8,
-      updatedAt: "3 days ago",
-    },
-  ]);
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
-  const filteredProjects = projects.filter((project) =>
-    project.title
-      .toLowerCase()
-      .includes(search.toLowerCase())
-  );
-
-  const handleCreateProject = (
-    title: string,
-    description: string
-  ) => {
-    const newProject: Project = {
-      id: Date.now().toString(),
-      title,
-      chapters: 0,
-      updatedAt: "Just now",
-    };
-
-    console.log("Creating Project:", {
-      ...newProject,
-      description,
-    });
-
-    setProjects((prev) => [newProject, ...prev]);
-  };
+  async function handleCreate(e: React.FormEvent) {
+    e.preventDefault();
+    if (!name.trim()) return;
+    setSubmitting(true);
+    try {
+      const project = await createProject({
+        name: name.trim(),
+        ...(description.trim() ? { description: description.trim() } : {}),
+      });
+      setName("");
+      setDescription("");
+      setShowForm(false);
+      navigate(`/projects/${project.id}`);
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
-          <h1 className="text-3xl font-bold">
-            Sumi
-          </h1>
-
-          <a
-            href="/account"
-            className="px-4 py-2 border rounded-lg hover:bg-gray-50"
-          >
-            Account
-          </a>
-        </div>
-      </header>
-
-      {/* Content */}
-      <main className="max-w-7xl mx-auto px-8 py-8">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold">
-            Your Projects
-          </h2>
-
-          <p className="text-gray-600 mt-1">
-            Create, manage, and organize your manga projects.
-          </p>
-        </div>
-
-        {/* Actions */}
-        <div className="flex flex-col md:flex-row gap-4 justify-between mb-8">
-          <SearchBar
-            value={search}
-            onChange={setSearch}
-            placeholder="Search projects..."
-          />
-
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-3xl mx-auto px-6 py-10 space-y-8">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
           <button
-            onClick={() =>
-              setIsCreateModalOpen(true)
-            }
-            className="px-6 py-2 bg-black text-white rounded-lg hover:opacity-90"
+            onClick={() => setShowForm((v) => !v)}
+            className="text-sm bg-gray-900 text-white px-3 py-1.5 rounded-md hover:bg-gray-700"
           >
-            + Create Project
+            + New project
           </button>
         </div>
 
-        {/* Projects */}
-        {filteredProjects.length > 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                id={project.id}
-                title={project.title}
-                chapters={project.chapters}
-                updatedAt={project.updatedAt}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="bg-white border rounded-xl p-12 text-center">
-            <h3 className="text-xl font-semibold mb-2">
-              No projects found
-            </h3>
+        {showForm && (
+          <form onSubmit={handleCreate} className="border border-gray-200 rounded-lg p-4 bg-white space-y-3">
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Project name"
+              autoFocus
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+            />
+            <input
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Description (optional)"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setShowForm(false)}
+                className="text-sm text-gray-500 hover:text-gray-700 px-3 py-1.5"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={submitting || !name.trim()}
+                className="text-sm bg-gray-900 text-white px-4 py-1.5 rounded-md hover:bg-gray-700 disabled:opacity-50"
+              >
+                {submitting ? "Creating…" : "Create"}
+              </button>
+            </div>
+          </form>
+        )}
 
-            <p className="text-gray-600">
-              Try another search term or create a
-              new project.
-            </p>
+        {loading && <p className="text-sm text-gray-400">Loading…</p>}
+        {error && <p className="text-sm text-red-500">{error}</p>}
+
+        {!loading && projects.length === 0 && (
+          <div className="border border-dashed border-gray-300 rounded-lg p-8 text-center">
+            <p className="text-sm text-gray-400">No projects yet.</p>
+            <button
+              onClick={() => setShowForm(true)}
+              className="mt-2 text-sm text-gray-600 underline hover:text-gray-900"
+            >
+              Create your first project
+            </button>
           </div>
         )}
-      </main>
 
-      <CreateProjectModal
-        isOpen={isCreateModalOpen}
-        onClose={() =>
-          setIsCreateModalOpen(false)
-        }
-        onCreate={handleCreateProject}
-      />
+        {projects.length > 0 && (
+          <ul className="space-y-2">
+            {projects.map((project) => (
+              <li
+                key={project.id}
+                className="flex items-center justify-between border border-gray-200 rounded-lg px-4 py-3 bg-white hover:bg-gray-50"
+              >
+                <button
+                  onClick={() => navigate(`/projects/${project.id}`)}
+                  className="flex-1 text-left"
+                >
+                  <span className="text-sm font-medium text-gray-900">{project.name}</span>
+                  {project.description && (
+                    <span className="ml-2 text-xs text-gray-400">{project.description}</span>
+                  )}
+                </button>
+
+                {confirmId === project.id ? (
+                  <div className="flex items-center gap-2 ml-4">
+                    <span className="text-xs text-gray-500">Delete?</span>
+                    <button
+                      onClick={() => { deleteProject(project.id); setConfirmId(null); }}
+                      className="text-xs text-red-600 font-medium hover:text-red-800"
+                    >
+                      Yes
+                    </button>
+                    <button
+                      onClick={() => setConfirmId(null)}
+                      className="text-xs text-gray-400 hover:text-gray-600"
+                    >
+                      No
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setConfirmId(project.id)}
+                    className="ml-4 text-xs text-gray-400 hover:text-red-500"
+                  >
+                    Delete
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
