@@ -6,6 +6,6 @@
   "deploy": {
     "startCommand": "pnpm --filter @sumi/api start",
     "restartPolicyType": "on_failure",
-    "restartPolicyMaxRetries": 5
+    "restartPolicyMaxRetries": 10
   }
 }
