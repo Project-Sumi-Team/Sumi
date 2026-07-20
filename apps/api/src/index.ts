@@ -16,7 +16,10 @@ const app = express();
 const port = process.env.PORT ? Number(process.env.PORT) : 3001;
 
 app.use(cors({ 
-  origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+  origin: [
+    process.env.CORS_ORIGIN || "http://localhost:5173",
+    "https://sumi-manga-editor-production.netlify.app"
+  ],
   credentials: true 
 }));
 app.use(express.json());
