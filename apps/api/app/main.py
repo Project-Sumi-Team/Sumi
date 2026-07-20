@@ -46,3 +46,8 @@ app.include_router(projects_router, prefix="/api/projects", tags=["projects"])
 app.include_router(pages_router, prefix="/api/pages", tags=["pages"])
 app.include_router(chapters_router, prefix="/api/chapters", tags=["chapters"])
 app.include_router(export_router, prefix="/api/export", tags=["export"])
+
+for route in app.routes:
+    if hasattr(route, "methods"):
+        methods = ", ".join(route.methods)
+        print(f"Route: {route.path}, Methods: {methods}")
