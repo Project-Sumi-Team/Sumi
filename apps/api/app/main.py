@@ -17,6 +17,9 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",  # Vite
         "http://localhost:3000"   # React fallback
+        "https://sumi-3.onrender.com",  # Render
+        "https://sumi-manga-editor.netlify.app",  # Netlify
+        "https://sumi-manga-editor-production.netlify.app"  # Netlify Production
     ],
     allow_credentials=True,
     allow_methods=["*"],
