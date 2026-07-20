@@ -38,8 +38,8 @@ def health_check():
     return {
         "status": "ok"
     }
-app.include_router(auth_router, prefix="/auth", tags=["auth"])
-app.include_router(projects_router, prefix="/projects", tags=["projects"])
-app.include_router(pages_router, prefix="/pages", tags=["pages"])
-app.include_router(chapters_router, prefix="/chapters", tags=["chapters"])
-app.include_router(export_router, prefix="/export", tags=["export"])
+app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
+app.include_router(projects_router, prefix="/api/projects", tags=["projects"])
+app.include_router(pages_router, prefix="/api/pages", tags=["pages"])
+app.include_router(chapters_router, prefix="/api/chapters", tags=["chapters"])
+app.include_router(export_router, prefix="/api/export", tags=["export"])
