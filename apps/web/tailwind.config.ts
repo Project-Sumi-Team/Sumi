@@ -20,18 +20,18 @@ const config: Config = {
           900: "#111827",
         },
 
-        // Accent — primary interactive color (indigo, grounded and editorial)
+        // Accent — primary interactive color (warm brown, earthy and inviting)
         accent: {
-          50: "#eef2ff",
-          100: "#e0e7ff",
-          200: "#c7d2fe",
-          300: "#a5b4fc",
-          400: "#818cf8",
-          500: "#6366f1",   // primary accent
-          600: "#4f46e5",   // hover
-          700: "#4338ca",   // active / pressed
-          800: "#3730a3",
-          900: "#312e81",
+          50: "#faf7f2",
+          100: "#f5f0e8",
+          200: "#e8dcc8",
+          300: "#d9c7a8",
+          400: "#c9a876",
+          500: "#9d7e5c",   // primary accent - warm brown
+          600: "#8b6d4f",   // hover
+          700: "#6d5642",   // active / pressed
+          800: "#5a4635",
+          900: "#3e3228",
         },
 
         // Danger — destructive actions (matches reference red usage)
