@@ -1,5 +1,10 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
+if (!API_BASE_URL && typeof window !== "undefined") {
+  console.warn(
+    "VITE_API_URL environment variable is not set. API calls will fail."
+  );
+}
 
 export const endpoints = {
   auth: {
@@ -41,6 +46,12 @@ export async function api<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
+  if (!API_BASE_URL) {
+    throw new Error(
+      "API_BASE_URL is not configured. Set VITE_API_URL environment variable."
+    );
+  }
+
   const response = await fetch(
     `${API_BASE_URL}${endpoint}`,
     {
