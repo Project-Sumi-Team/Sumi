@@ -49,3 +49,4 @@ app.include_router(export_router, prefix="/api/export", tags=["export"])
 
 for route in app.routes:
     print(route.path, route.name)
+    print("TIRED")
