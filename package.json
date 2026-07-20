@@ -10,5 +10,9 @@
   },
   "pnpmConfig": {
     "onlyBuiltDependencies": ["esbuild"]
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=11.0.0"
   }
 }
