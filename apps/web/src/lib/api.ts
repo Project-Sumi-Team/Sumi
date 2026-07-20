@@ -8,37 +8,37 @@ if (!API_BASE_URL && typeof window !== "undefined") {
 
 export const endpoints = {
   auth: {
-    register: "/auth/register",
-    login: "/auth/login",
-    me: "/auth/me",
+    register: "/api/auth/register",
+    login: "/api/auth/login",
+    me: "/api/auth/me",
   },
 
   projects: {
-    list: "/projects",
-    create: "/projects",
-    get: (id: string) => `/projects/${id}`,
-    update: (id: string) => `/projects/${id}`,
-    delete: (id: string) => `/projects/${id}`,
+    list: "/api/projects",
+    create: "/api/projects",
+    get: (id: string) => `/api/projects/${id}`,
+    update: (id: string) => `/api/projects/${id}`,
+    delete: (id: string) => `/api/projects/${id}`,
   },
 
   chapters: {
     list: (projectId: string) =>
-      `/projects/${projectId}/chapters`,
-    create: "/chapters",
-    get: (id: string) => `/chapters/${id}`,
-    update: (id: string) => `/chapters/${id}`,
-    delete: (id: string) => `/chapters/${id}`,
+      `/api/projects/${projectId}/chapters`,
+    create: "/api/chapters",
+    get: (id: string) => `/api/chapters/${id}`,
+    update: (id: string) => `/api/chapters/${id}`,
+    delete: (id: string) => `/api/chapters/${id}`,
   },
 
   pages: {
-    create: "/pages",
-    get: (id: string) => `/pages/${id}`,
-    update: (id: string) => `/pages/${id}`,
-    delete: (id: string) => `/pages/${id}`,
+    create: "/api/pages",
+    get: (id: string) => `/api/pages/${id}`,
+    update: (id: string) => `/api/pages/${id}`,
+    delete: (id: string) => `/api/pages/${id}`,
   },
 
   export: {
-    png: "/export/png",
+    png: "/api/export/png",
   },
 };
 
