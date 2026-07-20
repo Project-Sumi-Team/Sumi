@@ -7,7 +7,7 @@
     "build": "pnpm -r run build",
     "typecheck": "pnpm -r run typecheck"
   },
-  "pnpm": {
+  "pnpmConfig": {
     "onlyBuiltDependencies": ["esbuild"]
   }
 }
