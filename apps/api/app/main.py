@@ -20,6 +20,7 @@ app.add_middleware(
         "https://sumi-3.onrender.com",  # Render
         "https://sumi-manga-editor.netlify.app",  # Netlify
         "https://sumi-manga-editor-production.netlify.app"  # Netlify Production
+        "https://sumi-10.onrender.com",  # Render Production
     ],
     allow_credentials=True,
     allow_methods=["*"],
