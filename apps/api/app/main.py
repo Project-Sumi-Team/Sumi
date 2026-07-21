@@ -14,14 +14,7 @@ app = FastAPI(
 # CORS for React frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",  # Vite
-        "http://localhost:3000"   # React fallback
-        "https://sumi-3.onrender.com",  # Render
-        "https://sumi-manga-editor.netlify.app",  # Netlify
-        "https://sumi-manga-editor-production.netlify.app"  # Netlify Production
-        "https://sumi-10.onrender.com",  # Render Production
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
