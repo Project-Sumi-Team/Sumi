@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "pnpm -r --parallel run dev",
     "build": "pnpm -r run build",
+<<<<<<< HEAD
     "typecheck": "pnpm -r run typecheck",
     "start": "pnpm --filter @sumi/api start"
   },
@@ -14,5 +15,11 @@
   "engines": {
     "node": ">=22.0.0",
     "pnpm": ">=10.0.0"
+=======
+    "typecheck": "pnpm -r run typecheck"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+>>>>>>> origin/dorito/ui-foundation
   }
 }

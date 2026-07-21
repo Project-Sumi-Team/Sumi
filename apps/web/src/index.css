@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 :root {
   --text: #5a4635;
@@ -110,6 +111,8 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+=======
+>>>>>>> origin/dorito/ui-foundation
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

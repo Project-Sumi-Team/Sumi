@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Landing from "./pages/Landing";
@@ -73,9 +74,26 @@ function App() {
 
         {/* 404 Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
+=======
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import ProjectOverview from "./pages/ProjectOverview";
+import ChapterView from "./pages/ChapterView";
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/projects/:projectId" element={<ProjectOverview />} />
+        <Route path="/projects/:projectId/chapters/:chapterId" element={<ChapterView />} />
+>>>>>>> origin/dorito/ui-foundation
       </Routes>
     </BrowserRouter>
   );
 }
+<<<<<<< HEAD
 
 export default App;
+=======
+>>>>>>> origin/dorito/ui-foundation

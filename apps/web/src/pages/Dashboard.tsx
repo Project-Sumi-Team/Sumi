@@ -36,6 +36,7 @@ export default function Dashboard() {
   }
 
   return (
+<<<<<<< HEAD
     <div className="min-h-screen bg-slate-50">
       <div className="mx-auto max-w-4xl px-6 py-10 space-y-8 lg:px-8">
         <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:flex-row sm:items-end sm:justify-between">
@@ -49,11 +50,26 @@ export default function Dashboard() {
             className="rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
           >
             {showForm ? "Close" : "+ New project"}
+=======
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-3xl mx-auto px-6 py-10 space-y-8">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
+          <button
+            onClick={() => setShowForm((v) => !v)}
+            className="text-sm bg-gray-900 text-white px-3 py-1.5 rounded-md hover:bg-gray-700"
+          >
+            + New project
+>>>>>>> origin/dorito/ui-foundation
           </button>
         </div>
 
         {showForm && (
+<<<<<<< HEAD
           <form onSubmit={handleCreate} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm space-y-3">
+=======
+          <form onSubmit={handleCreate} className="border border-gray-200 rounded-lg p-4 bg-white space-y-3">
+>>>>>>> origin/dorito/ui-foundation
             <input
               type="text"
               value={name}
@@ -88,6 +104,7 @@ export default function Dashboard() {
           </form>
         )}
 
+<<<<<<< HEAD
         {loading && <p className="text-sm text-slate-500">Loading your projects…</p>}
         {error && <p className="text-sm text-red-500">{error}</p>}
 
@@ -98,6 +115,17 @@ export default function Dashboard() {
             <button
               onClick={() => setShowForm(true)}
               className="mt-5 rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
+=======
+        {loading && <p className="text-sm text-gray-400">Loading…</p>}
+        {error && <p className="text-sm text-red-500">{error}</p>}
+
+        {!loading && projects.length === 0 && (
+          <div className="border border-dashed border-gray-300 rounded-lg p-8 text-center">
+            <p className="text-sm text-gray-400">No projects yet.</p>
+            <button
+              onClick={() => setShowForm(true)}
+              className="mt-2 text-sm text-gray-600 underline hover:text-gray-900"
+>>>>>>> origin/dorito/ui-foundation
             >
               Create your first project
             </button>
@@ -105,11 +133,19 @@ export default function Dashboard() {
         )}
 
         {projects.length > 0 && (
+<<<<<<< HEAD
           <ul className="space-y-3">
             {projects.map((project) => (
               <li
                 key={project.id}
                 className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition hover:bg-slate-50"
+=======
+          <ul className="space-y-2">
+            {projects.map((project) => (
+              <li
+                key={project.id}
+                className="flex items-center justify-between border border-gray-200 rounded-lg px-4 py-3 bg-white hover:bg-gray-50"
+>>>>>>> origin/dorito/ui-foundation
               >
                 <button
                   onClick={() => navigate(`/projects/${project.id}`)}

@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 
  {
   "references": [
   ],
+=======
+{
+>>>>>>> origin/dorito/ui-foundation
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
