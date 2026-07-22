@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { login, saveToken } from "../lib/auth";
+import {api, endpoints} from "../lib/api";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -26,6 +27,18 @@ export default function Login() {
     }
   };
 
+  const result = await api(
+    endpoints.auth.login,{
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    }
+  );
+
+  localStorage.setItem(
+    "authToken",
+    result.access_token
+  )
+    navigate("/dashboard");
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#f8fafc,_#f1f5f9_60%,_#e2e8f0)] px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-5xl flex-col gap-6 lg:flex-row lg:items-center">

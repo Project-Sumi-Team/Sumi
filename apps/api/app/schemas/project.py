@@ -4,6 +4,7 @@ from datetime import datetime
 
 class ProjectCreate(BaseModel):
     title: str = Field(
+        alias="name",
         min_length=1,
         max_length=255
     )
