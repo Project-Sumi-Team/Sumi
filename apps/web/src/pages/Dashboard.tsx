@@ -33,7 +33,7 @@ export default function Dashboard() {
 
     try {
       const project = await createProject({
-        title: name.trim(),
+        name: name.trim(),
         ...(description.trim()
           ? { description: description.trim() }
           : {}),
@@ -160,7 +160,7 @@ export default function Dashboard() {
                   className="flex-1 text-left"
                 >
                   <span className="text-sm font-medium text-gray-900">
-                    {project.name ?? project.title}
+                    {project.name ?? project.name}
                   </span>
 
                   {project.description && (

@@ -12,7 +12,6 @@ export default defineConfig({
   server: {
     allowedHosts: true,
   },
-<<<<<<< HEAD
   build: {
     outDir: "dist",
     sourcemap: false,
@@ -26,6 +25,4 @@ export default defineConfig({
       },
     },
   },
-=======
->>>>>>> origin/dorito/ui-foundation
 });
