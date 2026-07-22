@@ -3,8 +3,8 @@ from datetime import datetime
 
 
 class ProjectCreate(BaseModel):
-    title: str = Field(
-        alias="name",
+    name: str = Field(
+        alias="title",
         min_length=1,
         max_length=255
     )
@@ -16,7 +16,7 @@ class ProjectCreate(BaseModel):
 
 
 class ProjectUpdate(BaseModel):
-    title: str | None = Field(
+    name: str | None = Field(
         default=None,
         min_length=1,
         max_length=255
@@ -30,7 +30,7 @@ class ProjectUpdate(BaseModel):
 
 class ProjectResponse(BaseModel):
     id: int
-    title: str
+    name: str
     description: str | None
     owner_id: int
     created_at: datetime

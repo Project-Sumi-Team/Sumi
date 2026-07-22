@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 class ChapterCreate(BaseModel):
-    title: str = Field(
+    name: str = Field(
         min_length=1,
         max_length=255
     )
@@ -16,13 +16,13 @@ class ChapterCreate(BaseModel):
 
 
 class ChapterUpdate(BaseModel):
-    title: str | None = None
+    name: str | None = None
     chapter_number: int | None = None
 
 
 class ChapterResponse(BaseModel):
     id: int
-    title: str
+    name: str
     chapter_number: int
     project_id: int
     created_at: datetime
